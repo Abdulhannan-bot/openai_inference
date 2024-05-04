@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from llmware_api.models import Document, DefaultPrompt
 import os
 from PyPDF2 import PdfReader
@@ -15,6 +16,8 @@ from .utils import extract_text_from_pdf
 # Create your views here.
 
 def add_documents(request,subject):
+    if subject == "" or subject is None:
+        return HttpResponse("<h1>Error</h1>")
     docs = Document.objects.filter(subject = subject)
     try:
         prompt = DefaultPrompt.objects.get(subject = subject)
