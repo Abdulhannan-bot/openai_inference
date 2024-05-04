@@ -4,11 +4,11 @@ import os
 from PyPDF2 import PdfReader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain.indexes import VectorstoreIndexCreator
 from typing_extensions import Concatenate
 from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import OpenAI
+from langchain_community.llms import OpenAI
 from llmware_api.utils import create_db, get_text_from_file
 from .utils import extract_text_from_pdf
 
