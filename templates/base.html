@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <!-- Favicon icon -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="{% static 'images/logos/favicon.png' %}" />
+
+        {% block title %} {% endblock title %}
+
+        <!-- chartist CSS -->
+        <link
+            href="{% static 'assets/libs/chartist/dist/chartist.min.css' %}"
+            type="text/css"
+            rel="stylesheet" />
+        <link
+            href="{% static 'assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css' %}"
+            type="text/css"
+            rel="stylesheet" />
+
+        <!--c3 CSS -->
+        <link
+            href="{% static 'assets/libs/morris.js/morris.css' %}"
+            type="text/css"
+            rel="stylesheet" />
+        <link
+            href="{% static 'assets/extra-libs/c3/c3.min.css' %}"
+            type="text/css"
+            rel="stylesheet" />
+        <!-- Custom CSS -->
+
+        <!-- needed css -->
+        <link
+            href="{% static 'dist/css/style.min.css' %}"
+            type="text/css"
+            rel="stylesheet" />
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% static 'assets/libs/select2/dist/css/select2.min.css' %}" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Poppins:400,700,900"
+            rel="stylesheet" />
+
+        <!-- Latest Sortable -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jsonview/1.2.3/jquery.jsonview.css" integrity="sha512-6dqKyKlSER24gVyNQkP3cUfIaA5OfAEHxDBRiElKxSmlZTTdY6Z7uiUW5pADcTzqjEmli6Dv+IuTPsMLuFPeBg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+        <!-- <link rel="stylesheet" href="{% static 'assets/libs/jquery.jsonview.css' %}"> -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/json-formatter/0.7.0/json-formatter.css"
+            integrity="sha512-NNFV0r1wMW0cCuXxpGtyWmSOXSG7dDFrb3Sufe4SM7MpAB4izlbCWsprsIPQ8EiDZLMpgXd5tk6rTPz0kLKoNA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+
+        <!-- For select 2 custom input -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% static 'custom/css/base.css' %}" />
+        <style>
+            body {
+                -webkit-font-smoothing: subpixel-antialiased;
+            }
+
+            .page-wrapper > .page-content {
+                padding: 10px 30px !important;
+            }
+        </style>
+
+        {% block custom_css %} {% endblock custom_css %} {% block head_items %}
+        {% endblock head_items %}
+    </head>
+
+    <body>
+        <div id="main-wrapper">
+            <div id="cover-spin"></div>
+
+            <!-- Topbar header - style you can find in pages.scss -->
+            {% include 'navbar/top_bar.html' %}
+            <!-- End Topbar header -->
+
+            <!-- Left Sidebar - style you can find in sidebar.scss  -->
+            {% include 'navbar/left_sidebar.html' %}
+            <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+
+            <!-- Page wrapper  -->
+            <!-- ============================================================== -->
+            <div class="page-wrapper">
+                <!-- Bread crumb and right sidebar toggle -->
+                <div class="row form-group bredcurm_grey_class">
+                    <div
+                        class="col-lg-12 col-md-12 col-xs-12 align-self-center">
+                        <ul class="breadcrumb">
+                            {% block breadcrumb %} {% endblock breadcrumb %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- Container fluid  -->
+                <div class="page-content container-fluid">
+                    {% block page_content %} {% endblock page_content %}
+                </div>
+                <!-- End Container fluid  -->
+            </div>
+            <!-- End Page wrapper  -->
+        </div>
+        <!-- End Wrapper -->
+
+        <div class="chat-windows"></div>
+
+        <!-- All Jquery -->
+        <!-- ============================================================== -->
+        <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script> -->
+
+        <!-- Jquery UI cdn -->
+        <script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/libs/popper.js/dist/umd/popper.min.js' %}"></script>
+
+        <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <!-- apps -->
+        <script src="{% static 'dist/js/app.min.js' %}"></script>
+        <script src="{% static 'dist/js/app.init.mini-sidebar.js' %}"></script>
+        <!-- <script src="{% static ' dist/js/app-style-switcher.js' %}"></script> -->
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src="{% static 'assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js' %}"></script>
+        <script src="{% static 'assets/extra-libs/sparkline/sparkline.js' %}"></script>
+        <!--Wave Effects -->
+        <script src="{% static 'dist/js/waves.js' %}"></script>
+        <!--Menu sidebar -->
+        <script src="{% static 'dist/js/sidebarmenu.js' %}"></script>
+        <!--Custom JavaScript -->
+        <script src="{% static 'dist/js/custom.min.js' %}"></script>
+
+        <!-- This Page JS -->
+        <script src="{% static 'assets/libs/chartist/dist/chartist.min.js' %}"></script>
+        <script src="{% static 'dist/js/pages/chartist/chartist-plugin-tooltip.js' %}"></script>
+        <script src="{% static 'assets/extra-libs/c3/d3.min.js' %}"></script>
+        <script src="{% static 'assets/extra-libs/c3/c3.min.js' %}"></script>
+        <script src="{% static 'assets/libs/raphael/raphael.min.js' %}"></script>
+
+        <script src="{% static 'assets/libs/select2/dist/js/select2.full.min.js' %}"></script>
+        <script src="{% static 'assets/libs/select2/dist/js/select2.min.js' %}"></script>
+        <script src="{% static 'dist/js/pages/forms/select2/select2.init.js' %}"></script>
+        <script src="{% static 'assets/libs/jquery.jsonview.min.js' %}"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jsonview/1.2.3/jquery.jsonview.min.js" integrity="sha512-ff/E/8AEnLDXnTCyIa+l80evPRNH8q5XnPGY/NgBL645jzHL1ksmXonVMDt7e5D34Y4DTOv+P+9Rmo9jBSSyIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/json-formatter/0.7.0/json-formatter.js" integrity="sha512-6b2/wwTIxfsTW3Wu/gS5LNBz2bcWrwQTQQscpjzVYj2WYIn7kgtiPsJKnS//a72z+s1OHKc8ck3Zga3nQfW4eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/renderjson@1.4.0/renderjson.min.js"></script> -->
+        <script src="https://cdn.rawgit.com/caldwell/renderjson/master/renderjson.js"></script>
+        {% block custom_js %} {% endblock custom_js %}
+
+        <script>
+            try {
+                var search = document.getElementById('search').value;
+            } catch (err) {
+                search = '';
+            }
+            // $('#cover-spin').show();
+            $(window).on('load', function () {
+                $('#cover-spin').hide();
+            });
+            $("select option[value='']").text('Select');
+            $('.select2').select2({ width: '100%' });
+        </script>
+    </body>
+</html>

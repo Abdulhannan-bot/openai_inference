@@ -1,0 +1,80 @@
+{% load static %}
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li class="sidebar-item">
+                    <a
+                        class="sidebar-link has-arrow waves-effect waves-dark"
+                        href="javascript:void(0)"
+                        aria-expanded="false">
+                        <i class="mdi mdi-book-open"></i>
+                        <span class="hide-menu">Subjects</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a
+                                class="sidebar-link waves-effect waves-dark"
+                                href="{% url 'documents' subject='english' %}"
+                                aria-expanded="false">
+                                <i class="mdi mdi-book-open"></i>
+                                <span class="hide-menu">English</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a
+                                class="sidebar-link waves-effect waves-dark"
+                                href="{% url 'documents' subject='hindi' %}"
+                                aria-expanded="false">
+                                <i class="mdi mdi-book-open"></i>
+                                <span class="hide-menu">Hindi</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a
+                                class="sidebar-link waves-effect waves-dark"
+                                href="{% url 'documents' subject='mathematics' %}"
+                                aria-expanded="false">
+                                <i class="mdi mdi-book-open"></i>
+                                <span class="hide-menu">Mathematics</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a
+                                class="sidebar-link waves-effect waves-dark"
+                                href="{% url 'documents' subject='science' %}"
+                                aria-expanded="false">
+                                <i class="mdi mdi-book-open"></i>
+                                <span class="hide-menu">Science</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a
+                                class="sidebar-link waves-effect waves-dark"
+                                href="{% url 'documents' subject='social_science' %}"
+                                aria-expanded="false">
+                                <i class="mdi mdi-book-open"></i>
+                                <span class="hide-menu">Social Science</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- <li class="sidebar-item">
+                    <a
+                        class="sidebar-link waves-effect waves-dark"
+                        href=""
+                        aria-expanded="false">
+                        <span class="hide-menu">Account Mapping</span>
+                    </a>
+                </li> -->
+            </ul>
+        </nav>
+    </div>
+</aside>

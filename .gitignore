@@ -1,0 +1,8 @@
+.env
+test.py
+media/*
+faiss_index/*
+test.py
+d-id.py
+langchain_helper.py
+langchain_open_ai.py

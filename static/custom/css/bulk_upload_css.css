@@ -1,0 +1,174 @@
+body {
+  font-family: "Poppins" !important;
+}
+
+.page-wrapper {
+  /* background: #edf1f5; */
+  position: relative;
+}
+
+.page-wrapper > .page-content {
+  /* padding: 30px; */
+  min-height: calc(100vh - 167px);
+}
+
+thead {
+  height: 30px;
+}
+
+.topbar {
+  position: relative;
+  z-index: 50;
+  background: #fff;
+  height: 60px;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* Spinner css */
+#cover-spin {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 9999;
+  display: none;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#cover-spin::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 48%;
+  top: 40%;
+  width: 40px;
+  height: 40px;
+  border-style: solid;
+  border-color: black;
+  border-top-color: transparent;
+  border-width: 4px;
+  border-radius: 50%;
+  -webkit-animation: spin 0.8s linear infinite;
+  animation: spin 0.8s linear infinite;
+}
+
+#cover-spin {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 9999;
+  display: none;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#cover-spin::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 48%;
+  top: 40%;
+  width: 40px;
+  height: 40px;
+  border-style: solid;
+  border-color: black;
+  border-top-color: transparent;
+  border-width: 4px;
+  border-radius: 50%;
+  -webkit-animation: spin 0.8s linear infinite;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Breadcrumb css */
+.breadcrumb-item + .breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  color: #000000;
+  content: ">" !important;
+}
+
+.bredcurm_grey_class {
+  background-color: #e2e7ed;
+  padding-left: 3%;
+  padding-top: 5px;
+}
+
+.primary_color {
+  color: #009eee;
+  /* text-decoration: underline; */
+  font-weight: bold;
+}
+
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  margin-bottom: 0;
+  background-color: transparent;
+  /* font-weight: bold; */
+}
+
+ul.breadcrumb li {
+  display: inline;
+  font-size: 16px;
+}
+
+li {
+  cursor: pointer;
+}
+
+ul.breadcrumb li a {
+  color: black;
+  text-decoration: none;
+}
+
+ul.breadcrumb li a:hover {
+  color: rgb(105, 123, 165);
+  text-decoration-line: underline;
+}
