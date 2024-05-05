@@ -48,7 +48,7 @@ def add_documents(request,subject):
                     if subject == "hindi":
                         print(file_path)
                         # raw_text += extract_text_from_pdf(str(file_path))
-                        images_123e = convert_from_path(file_path)
+                        images_123e = convert_from_path(str(file_path))
                         for i in images_123e:
                             raw_text += pytesseract.image_to_string(i, lang="Devanagari")
                             print(raw_text)
