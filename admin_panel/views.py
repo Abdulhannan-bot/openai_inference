@@ -25,7 +25,6 @@ def add_documents(request,subject):
         prompt = DefaultPrompt.objects.create(subject = subject)
     
     if request.method == "POST":
-        print(request.POST)
         if 'delete' in request.POST:
             print(request.POST)
             doc_id = request.POST.get("document_id")
@@ -46,6 +45,7 @@ def add_documents(request,subject):
                     if subject == "hindi":
                         print(file_path)
                         raw_text += extract_text_from_pdf(str(file_path))
+                        print(raw_text)
                     else:
                         pdf_reader = PdfReader(file_path)
                         for i,page in enumerate(pdf_reader.pages):
