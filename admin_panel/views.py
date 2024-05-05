@@ -38,7 +38,7 @@ def add_documents(request,subject):
         
 
         if 'embedd' in request.POST:
-            print(request.POST)
+            print(request.POST, subject)
             document_search = None
             raw_text = ''
             if docs.count() >= 1:
@@ -46,7 +46,9 @@ def add_documents(request,subject):
                     print(i.doc.file)
                     file_path = i.doc.file
                     if subject == "hindi":
+                        print("yes")
                         print(file_path)
+
                         # raw_text += extract_text_from_pdf(str(file_path))
                         images_123e = convert_from_path(str(file_path))
                         for i in images_123e:
