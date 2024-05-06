@@ -11,7 +11,7 @@ from typing_extensions import Concatenate
 from langchain.chains.question_answering import load_qa_chain
 from langchain_community.llms import OpenAI
 from llmware_api.utils import create_db, get_text_from_file
-from .utils import extract_text_from_pdf
+from .utility import extract_text_from_pdf
 import pytesseract
 from pdf2image import convert_from_path
 
@@ -46,14 +46,12 @@ def add_documents(request,subject):
                     print(i.doc.file)
                     file_path = i.doc.file
                     if subject == "hindi":
-                        print("yes")
                         print(file_path)
-
-                        # raw_text += extract_text_from_pdf(str(file_path))
-                        images_123e = convert_from_path(str(file_path))
-                        for i in images_123e:
-                            raw_text += pytesseract.image_to_string(i, lang="Devanagari")
-                            print(raw_text)
+                        raw_text += extract_text_from_pdf(str(file_path))
+                        # images_123e = convert_from_path(str(file_path))
+                        # for i in images_123e:
+                        #     raw_text += pytesseract.image_to_string(i, lang="Devanagari")
+                        #     print(raw_text)
                     else:
                         pdf_reader = PdfReader(file_path)
                         for i,page in enumerate(pdf_reader.pages):
