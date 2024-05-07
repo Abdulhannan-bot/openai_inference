@@ -19,9 +19,9 @@ from django.conf.urls.static import static
 from django.urls import path, include
 
 urlpatterns = [
-    path('api/admin/', admin.site.urls),
-    path('api/llmware/', include('llmware_api.urls')),
-    path('api/admin_panel/', include('admin_panel.urls')),
+    path('admin/', admin.site.urls),
+    path('llmware/', include('llmware_api.urls')),
+    path('admin_panel/', include('admin_panel.urls')),
 ]
 
 if settings.DEBUG:
