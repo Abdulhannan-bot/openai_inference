@@ -148,10 +148,7 @@ def login_user(request):
 
     return Response({'success': True, 'msg': 'logged In successfully', 'name': f"{first_name} {last_name}", 'email': str(user.email)})
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def teacher_avatar(request):
-    return Response({'success': True, 'msg': 'There is an impending case'})
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -251,8 +248,6 @@ def open_ai_chain(request):
 
     default_prompt = DefaultPrompt.objects.get(subject=subject)
 
-    print(default_prompt.prompt)
-
     new_db = FAISS.load_local(f"faiss_index/{subject}", embeddings, allow_dangerous_deserialization=True)
 
     history = ChatResponse.objects.filter(subject = subject)
@@ -266,7 +261,9 @@ def open_ai_chain(request):
 
     
     docs = new_db.similarity_search(prompt)
-    print(docs)
+
+    print(f"DOCS \n\n\n\n {docs}")
+    
     
     chain = create_chain(new_db, default_prompt.prompt, default_prompt.human_prompt)
     response = process_chat(chain, prompt, chat_history)

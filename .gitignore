@@ -6,3 +6,6 @@ test.py
 d-id.py
 langchain_helper.py
 langchain_open_ai.py
+convert_pdf.py
+req.txt
+test_hindi.txt

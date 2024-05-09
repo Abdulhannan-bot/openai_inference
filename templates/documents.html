@@ -94,7 +94,9 @@
                 <tr>
                     <td class="pl-4">{{ i.doc.name }}</td>
                     <td>
-                        <a type="button" onclick="deleteDoc(`{{i.id}}`)"
+                        <a
+                            type="button"
+                            onclick="deleteDoc('{{i.id}}', '{{i.doc.file}}')"
                             ><i class="mdi mdi-delete font-weight-bold"></i
                         ></a>
                     </td>
@@ -140,6 +142,10 @@
                         type="hidden"
                         name="document_id"
                         id="id_document_id_delete" />
+                    <input
+                        type="hidden"
+                        name="document_name"
+                        id="id_document_name_delete" />
                     <button
                         type="button"
                         class="btn btn-warning waves-effect float-right mx-2"
@@ -164,9 +170,10 @@
         $('#doc_upload_modal').modal('show');
     }
 
-    function deleteDoc(document_id) {
-        console.log(document_id);
+    function deleteDoc(document_id, document_name) {
+        console.log(document_id, document_name);
         $('#id_document_id_delete').val(document_id);
+        $('#id_document_name_delete').val(document_name);
         $('#document_delete_modal').modal('show');
     }
 </script>

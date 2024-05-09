@@ -1,7 +1,6 @@
 import pytesseract
 from pdf2image import pdfinfo_from_path, convert_from_path
 
-
 def extract_text_from_pdf(src):
     info = pdfinfo_from_path(src)
     max_pages = info.get("Pages")
@@ -11,5 +10,5 @@ def extract_text_from_pdf(src):
         for image in images_123e:
            convert_text += pytesseract.image_to_string(image, lang="hin")
     print(convert_text)
-    
+
     return convert_text
