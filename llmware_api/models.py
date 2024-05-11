@@ -63,6 +63,9 @@ class User(AbstractUser):
 # User.groups.field.related_name = 'llmware_user_groups'
 # User.user_permissions.field.related_name = 'llmware_user_permissions'
 
+class Subject(models.Model):
+    name = models.CharField(max_length=255, null = True)
+
 class ChatResponse(models.Model):
     chat = models.JSONField(blank = True)
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
@@ -82,4 +85,5 @@ class DefaultPrompt(models.Model):
 
 class TextRandom(models.Model):
     text = models.TextField(null = True)
+
 

@@ -20,8 +20,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('llmware/', include('llmware_api.urls')),
-    path('admin_panel/', include('admin_panel.urls')),
+    path('api/', include('llmware_api.urls')),
+    path('', include('admin_panel.urls')),
 ]
 
 if settings.DEBUG:
