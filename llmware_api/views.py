@@ -1,11 +1,14 @@
 import json
 from django.shortcuts import render
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authentication import BasicAuthentication, TokenAuthentication
 from .models import ChatResponse, TextRandom, User, DefaultPrompt, Subject
 from .utils import create_chain, process_chat
 from django.http import JsonResponse
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate, login, logout
 from langchain_core.messages import HumanMessage, AIMessage
 # Create your views here.
 import os
@@ -146,14 +149,22 @@ def login_user(request):
         }
         user = User.objects.create(**create_query)
         user.save()
-
-    return Response({'success': True, 'msg': 'logged In successfully', 'name': f"{first_name} {last_name}", 'email': str(user.email)})
+    token, _ = Token.objects.get_or_create(user = user)
+    token.save()
+    print(token)        
+    return Response({'success': True, 'msg': 'logged In successfully','token': token.key, 'name': f"{first_name} {last_name}", 'email': str(user.email)})
 
 
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def open_ai_chat(request):
+    token_key = request.auth.key
+    try:
+        token = Token.objects.get(key = token_key)
+    except Token.DoesNotExist:
+        return Response({'success': False, 'msg': 'Token not found'})
+    user = token.user
     body = request.data
     prompt = body.get("prompt")
     embeddings = OpenAIEmbeddings()
@@ -191,8 +202,14 @@ def open_ai_chat(request):
     return Response({'success':True, 'response': value, 'source': docs})
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def open_ai_chat(request):
+    token_key = request.auth.key
+    try:
+        token = Token.objects.get(key = token_key)
+    except Token.DoesNotExist:
+        return Response({'success': False, 'msg': 'Token not found'})
+    user = token.user
     body = request.data
     prompt = body.get("prompt")
     session_id = body.get("sessionId")
@@ -240,8 +257,15 @@ def open_ai_chat(request):
 
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def open_ai_chain(request):
+    token_key = request.auth.key
+    try:
+        token = Token.objects.get(key = token_key)
+    except Token.DoesNotExist:
+        return Response({'success': False, 'msg': 'Token not found'})
+    user = token.user
     body = request.data
     prompt = body.get("prompt")
     subject_name = body.get("subject")
@@ -251,9 +275,12 @@ def open_ai_chain(request):
 
     default_prompt = DefaultPrompt.objects.get(subject=subject)
 
-    new_db = FAISS.load_local(f"faiss_index/{subject}", embeddings, allow_dangerous_deserialization=True)
+    try:
+        new_db = FAISS.load_local(f"faiss_index/{subject}", embeddings, allow_dangerous_deserialization=True)
+    except:
+        return Response({'success':True, 'response': 'I dont Know',})
 
-    history = ChatResponse.objects.filter(subject = subject)
+    history = ChatResponse.objects.filter(subject = subject, user = user)
 
     chat_history = []
 
@@ -271,14 +298,21 @@ def open_ai_chain(request):
     chain = create_chain(new_db, default_prompt.prompt, default_prompt.human_prompt)
     response = process_chat(chain, prompt, chat_history)
 
-    new_chat = ChatResponse.objects.create(subject=subject, chat={"prompt": prompt, "response": response})
+    new_chat = ChatResponse.objects.create(subject=subject, user=user, chat={"prompt": prompt, "response": response})
     new_chat.save()
 
     return Response({'success':True, 'response': response, 'source': docs})
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def get_subjects(request):
+    token_key = request.auth.key
+    try:
+        token = Token.objects.get(key = token_key)
+    except Token.DoesNotExist:
+        return Response({'success': False, 'msg': 'Token not found'})
+    user = token.user
     subjects_list = Subject.objects.all()
     serializer = SubjectSerializer(subjects_list, many=True)
     return Response({'success':True, 'response':serializer.data})
