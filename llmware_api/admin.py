@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Document, ChatResponse, TextRandom, User, DefaultPrompt
+from .models import Document, ChatResponse, TextRandom, User, DefaultPrompt, Subject
 from django.utils.translation import gettext_lazy as _
 # Register your models here.
 
@@ -35,3 +35,8 @@ class DefaultPromptAdmin(admin.ModelAdmin):
     list_diplay = ["subject", "prompt"]
 
 admin.site.register(DefaultPrompt, DefaultPromptAdmin)
+
+class SubjectAdmin(admin.ModelAdmin):
+    list_display = ["name"]
+
+admin.site.register(Subject, SubjectAdmin)

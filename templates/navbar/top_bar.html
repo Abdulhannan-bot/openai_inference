@@ -1,5 +1,67 @@
 {% load static %}
 <header class="topbar" data-navbarbg="skin1" style="background-color: #009eee">
+    <ul class="navbar-nav float-left mr-4">
+        <!-- ============================================================== -->
+        <!-- Logo -->
+        <!-- ============================================================== -->
+
+        <li
+            class="nav-item border-right d-flex flex-row justify-content-center align-items-center">
+            <a class="nav-link navbar-brand d-none d-md-block" href="/">
+                <!-- Logo icon -->
+                <b class="logo-icon h-100">
+                    <!-- Light Logo icon -->
+                    <img
+                        src="/static/images/favicon.png"
+                        alt="homepage"
+                        class="light-logo"
+                        style="height: 3rem; margin-top: 0.5rem" />
+                </b>
+                <!--End Logo icon -->
+            </a>
+        </li>
+    </ul>
+
+    <!-- ============================================================== -->
+    <!-- toggle and nav items -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- Right side toggle and nav items -->
+    <!-- ============================================================== -->
+    <ul class="navbar-nav float-right mx-4">
+        <li class="nav-item dropdown">
+            <a
+                class="nav-link dropdown-toggle waves-effect waves-dark pro-pic my-2"
+                href=""
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <span class="user-text font-medium">{{user.first_name}}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                <div
+                    class="d-flex no-block align-items-center p-3 mb-2 border-bottom">
+                    <div class=""></div>
+                    <div class="ml-2">
+                        <h4 class="mb-0">
+                            {{user.first_name}} {{user.last_name}}
+                        </h4>
+                        <p class="mb-0 text-muted">{{user.email}}</p>
+                    </div>
+                </div>
+                <a class="dropdown-item" href="{% url 'logout' %}">
+                    <i class="fa fa-power-off mr-1 ml-1"></i>
+                    Logout
+                </a>
+            </div>
+        </li>
+
+        <!-- ============================================================== -->
+        <!-- User profile and search -->
+        <!-- ============================================================== -->
+    </ul>
+
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <div class="">
             <!-- This is for the sidebar toggle which is visible on mobile only -->
@@ -11,7 +73,7 @@
             <a class="navbar-brand d-block d-md-none" href="javascript:void(0)">
                 <span class="logo-text">
                     <img
-                        src="{% static 'images/logos/ps-logo-dark_0001.png' %}"
+                        src="{% static 'images/favicon.png' %}"
                         alt="homepage"
                         class="light-logo"
                         style="

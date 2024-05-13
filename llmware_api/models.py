@@ -64,24 +64,30 @@ class User(AbstractUser):
 # User.user_permissions.field.related_name = 'llmware_user_permissions'
 
 class Subject(models.Model):
-    name = models.CharField(max_length=255, null = True)
+    name = models.CharField(max_length=255, null = True, unique=True)
+
+    def __str__(this):
+        return str(this.name)
 
 class ChatResponse(models.Model):
     chat = models.JSONField(blank = True)
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
-    subject = models.CharField(max_length=100, choices=SUBJECTS, null = True)
+    subject = models.ForeignKey(Subject, null = True, on_delete=models.CASCADE)
     session_id = models.CharField(max_length=200, null = True)
 
 class Document(models.Model):
     doc = models.FileField(upload_to='docs/')
-    subject = models.CharField(max_length=100,choices=SUBJECTS, null=True)
+    subject = models.ForeignKey(Subject, null = True, on_delete=models.CASCADE)
     # prompt = models.TextField(null = True)
     selected = models.BooleanField(default=True)
 
 class DefaultPrompt(models.Model):
-    subject = models.CharField(max_length=100,choices=SUBJECTS, null=True, unique=True)
+    subject = models.ForeignKey(Subject, null = True, on_delete=models.CASCADE)
     prompt = models.TextField(null = True)
     human_prompt = models.TextField(null = True)
+
+    def __str__(this):
+        return str(this.subject.name)
 
 class TextRandom(models.Model):
     text = models.TextField(null = True)

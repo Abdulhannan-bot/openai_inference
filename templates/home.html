@@ -1,0 +1,248 @@
+{% extends 'base.html' %} {% load static %} {% block title %}
+<title>Home</title>
+{% endblock title %} {% block breadcrumb %}
+<li class="breadcrumb-item">
+    <span class="primary_color">Home</span>
+</li>
+{% endblock breadcrumb %} {% block custom_css %}
+<style>
+    /* Initial hide the delete icon */
+    .mdi-delete {
+        margin: 0 0.25rem;
+        display: none;
+    }
+
+    .mdi-lead-pencil {
+        /* margin: 5px; */
+        display: none;
+    }
+
+    .custom_edit_icon_class {
+        z-index: 999;
+        position: absolute;
+        top: 2%;
+        right: 0%;
+        transform: scale(0.6);
+        color: rgb(18, 36, 156);
+        cursor: pointer;
+    }
+
+    .custom_edit_icon_class:hover {
+        z-index: 999;
+        transform: scale(1.1);
+        transition: 0.04s ease-out;
+        color: rgb(18, 36, 156);
+    }
+
+    .custom_delete_icon_class {
+        z-index: 999;
+        position: absolute;
+        top: 2%;
+        right: 0%;
+        transform: scale(0.6);
+        color: rgb(200, 40, 40);
+        cursor: pointer;
+    }
+
+    /* On hover, on delete icon increase the size */
+    .custom_delete_icon_class:hover {
+        z-index: 999;
+        transform: scale(1);
+        transition: 0.04s ease-out;
+        color: rgb(255, 0, 0);
+    }
+
+    /* Class to use in script to hide unhide */
+    .show_icon_class {
+        display: block;
+        /* color: rgb(200, 40, 40); */
+    }
+
+    /* .show_delete_icon_class {
+        display: block;
+        color: rgb(200, 40, 40);
+    } */
+
+    .hide_icon_class {
+        display: none;
+    }
+</style>
+{% endblock custom_css %} {% block page_content %}
+<div class="row form-group">
+    <div class="col-12 mt-4 pt-1">
+        <a
+            class="btn btn-rounded btn-outline-success float-right mx-2"
+            onclick="handleCreate()">
+            <i class="mdi mdi-plus mr-1"></i> Add Subject
+        </a>
+        <div
+            id="subject_add_modal"
+            class="modal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="vcenter"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'add_subject' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <input
+                                        class="col-12"
+                                        type="text"
+                                        name="subject_name"
+                                        id="subject" />
+                                </div>
+                            </div>
+                            <div class="row float-right mx-3">
+                                <button
+                                    type="button"
+                                    class="btn btn-warning waves-effect"
+                                    data-dismiss="modal">
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    name="doc-add"
+                                    class="btn btn-danger waves-effect waves-light">
+                                    Create
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div
+    id="delete_subject"
+    class="modal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="vcenter"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h3
+                    class="modal-title font-weight-bold"
+                    id="vcenter"
+                    style="color: rgb(207, 33, 33)">
+                    Warning!!
+                </h3>
+                <a
+                    style="cursor: pointer"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-hidden="true"
+                    >×</a
+                >
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this subject?</p>
+            </div>
+
+            <div class="modal-footer">
+                <form action="{% url 'delete_subject' %}" method="post">
+                    {% csrf_token %}
+                    <input
+                        type="hidden"
+                        name="subject_id"
+                        id="subject_id_delete" />
+                    <button
+                        class="btn btn-danger waves-effect float-right mx-2"
+                        type="submit"
+                        name="delete-course">
+                        Confirm
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-warning waves-effect float-right mx-2"
+                        data-dismiss="modal">
+                        Cancel
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    {% for i in subjects %}
+    <div
+        class="col-lg-2 col-md-4 col-sm-6 d-flex align-items-center"
+        onmouseover="viewDeleteIcon(this)"
+        onmouseout="hideDeleteIcon(this)">
+        <div class="card bg-primary" style="width: 100%">
+            <h2 class="mb-0 p-0 text-align-center">
+                <i
+                    class="mdi mdi-delete float-right custom_delete_icon_class p-0"
+                    onclick="deleteSubject('{{i.id}}')"
+                    id="delete-course_{{i.id}}"></i>
+            </h2>
+            <a href="/documents/{{ i.name }}">
+                <div class="card-body">
+                    <div
+                        class="d-flex align-items-center justify-content-center">
+                        <div
+                            class="text-white d-flex align-items-center justify-content-center">
+                            <h2 class="align-self-center">{{ i.name }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <!-- <div class="el-card-item"> -->
+
+            <!-- </div> -->
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock page_content %} {% block custom_js %}
+<script>
+    function handleCreate() {
+        $('#subject_add_modal').modal('show');
+    }
+
+    function deleteDoc(document_id, document_name) {
+        console.log(document_id, document_name);
+        $('#id_document_id_delete').val(document_id);
+        $('#id_document_name_delete').val(document_name);
+        $('#document_delete_modal').modal('show');
+    }
+</script>
+
+<script>
+    function viewDeleteIcon(item) {
+        // let deleteIcon = $(item).children().children()[0];
+        var h1_tag = $($(item).children().children()[0]).children()[0];
+        console.log(h1_tag);
+        var deleteIcon = $(h1_tag).children()[0];
+        // console.log(deleteIcon);
+        // var deleteIcon = $(item).children()[$(item).children().length - 1].children[0];
+        // console.log(`deleteIcon: `, deleteIcon);
+
+        $(h1_tag).addClass('show_icon_class');
+        $(h1_tag).removeClass('hide_icon_class');
+    }
+
+    function hideDeleteIcon(item) {
+        let deleteIcon = $(item).children().children()[0];
+        var h1_tag = $($(item).children().children()[0]).children()[0];
+        console.log(h1_tag);
+        // var deleteIcon = $(h1_tag).children()[2];
+
+        $(h1_tag).addClass('hide_icon_class');
+        $(h1_tag).removeClass('show_icon_class');
+    }
+
+    function deleteSubject(id) {
+        // event.stopPropagation();
+        // let course_id = event.id.split('_')[1];
+        $('#subject_id_delete').val(id);
+        $('#delete_subject').modal('show');
+    }
+</script>
+{% endblock custom_js %}

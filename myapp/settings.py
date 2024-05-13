@@ -23,6 +23,7 @@ load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 SERVER = os.getenv("SERVER")
+SUPER_ADMIN = os.getenv("SUPER_ADMIN")
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = False
@@ -46,6 +47,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'admin_panel',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'llmware_api.authenticate.EmailBackend',
+)
 
 AUTH_USER_MODEL = 'llmware_api.User'
 

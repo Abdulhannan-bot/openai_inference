@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html dir="ltr">
+    {% load static %}
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <!-- Favicon icon -->
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="{% static 'images/favicon.png' %}" />
+
+        {% block title %} {% endblock title %}
+
+        <link href="{% static 'dist/css/style.min.css' %}" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <link
+            href="https://fonts.googleapis.com/css?family=Poppins:400,600"
+            rel="stylesheet" />
+
+        <style>
+            body {
+                font-family: 'Poppins';
+            }
+
+            /* .main-wrapper {
+                background: url('/static/images/favicon.png');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+            } */
+        </style>
+        {% block css %} {% endblock css %}
+    </head>
+
+    <body style="background-color: #fbfbff">
+        <div class="main-wrapper">
+            <div id="cover-spin"></div>
+
+            {% block content %} {% endblock content %}
+        </div>
+        <!-- ============================================================== -->
+        <!-- All Required js -->
+        <!-- ============================================================== -->
+        <script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src="{% static 'assets/libs/popper.js/dist/umd/popper.min.js' %}"></script>
+        <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/js/intlTelInput-jquery.min.js"></script>
+        <script
+            type="text/javascript"
+            src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/js/intlTelInput-jquery.min.js"></script>
+
+        <script>
+            $(window).on('load', function () {
+                $('#cover-spin').hide();
+            });
+        </script>
+        {% block custom_js %} {% endblock custom_js %}
+    </body>
+</html>

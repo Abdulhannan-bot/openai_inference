@@ -1,8 +1,9 @@
 {% extends 'base.html' %} {% load static %} {% block title %}
-<title>Documents</title>
+<title>{{ subject_current }}</title>
 {% endblock title %} {% block breadcrumb %}
+
 <li class="breadcrumb-item">
-    <span class="primary_color">Douments</span>
+    <span class="primary_color">{{ subject_current }}</span>
 </li>
 {% endblock breadcrumb %} {% block page_content %}
 
@@ -25,16 +26,6 @@
 </div>
 <div class="row form-group">
     <div class="col-12 mt-4 pt-1">
-        <form method="post">
-            {% csrf_token %}
-            <button
-                class="btn btn-rounded btn-outline-success float-right mx-2"
-                type="submit"
-                name="embedd">
-                <i class="mdi mdi-plus mr-1"></i> Embedd
-            </button>
-        </form>
-
         <a
             class="btn btn-rounded btn-outline-success float-right mx-2"
             onclick="handleCreate()">
