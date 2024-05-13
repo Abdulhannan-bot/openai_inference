@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'llmware_api',
     'rest_framework',
+    # 'rest_framework.authtoken',
     'corsheaders',
     'admin_panel',
 ]

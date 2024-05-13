@@ -65,6 +65,7 @@ class User(AbstractUser):
 
 class Subject(models.Model):
     name = models.CharField(max_length=255, null = True, unique=True)
+    profile_pic = models.ImageField(upload_to="subjects/", null=True, blank=True)
 
     def __str__(this):
         return str(this.name)

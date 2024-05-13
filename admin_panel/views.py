@@ -111,7 +111,7 @@ def add_documents(request,subject):
 
         this_docs = request.FILES.getlist("docs")
         for i in this_docs:
-            new_doc = Document.objects.create(subject = subject_current.name, doc = i)
+            new_doc = Document.objects.create(subject = subject_current, doc = i)
             create_db_2(str(new_doc.doc.file), subject_current.name)
             new_doc.save()
         return redirect('subject', subject=subject_current.name)

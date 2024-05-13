@@ -10,4 +10,5 @@ urlpatterns = [
     path('random-text', views.get_random_text, name='random_text'),
     # path('documents', views.add_documents, name="documents"),
     path('login', views.login_user, name="login_user"),
+    path('get_subjects', views.get_subjects, name="get_subjects"),
 ]

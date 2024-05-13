@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import ChatResponse, TextRandom, User, DefaultPrompt
+from .models import ChatResponse, TextRandom, User, DefaultPrompt, Subject
 from .utils import create_chain, process_chat
 from django.http import JsonResponse
 from langchain_core.messages import HumanMessage, AIMessage
@@ -25,6 +25,7 @@ from langchain.indexes import VectorstoreIndexCreator
 from typing_extensions import Concatenate
 from langchain.chains.question_answering import load_qa_chain
 from langchain_community.llms import OpenAI
+from .serializers import SubjectSerializer
 
 llm_name="TheBloke/Llama-2-7B-Chat-GGUF"
 # llm_name="llmware/slim-tags-3b-tool"
@@ -243,8 +244,10 @@ def open_ai_chat(request):
 def open_ai_chain(request):
     body = request.data
     prompt = body.get("prompt")
-    subject = body.get("subject")
+    subject_name = body.get("subject")
     embeddings = OpenAIEmbeddings()
+
+    subject = Subject.objects.get(name = subject_name)
 
     default_prompt = DefaultPrompt.objects.get(subject=subject)
 
@@ -268,8 +271,14 @@ def open_ai_chain(request):
     chain = create_chain(new_db, default_prompt.prompt, default_prompt.human_prompt)
     response = process_chat(chain, prompt, chat_history)
 
-    new_chat = ChatResponse.objects.create(chat={"prompt": prompt, "response": response})
+    new_chat = ChatResponse.objects.create(subject=subject, chat={"prompt": prompt, "response": response})
     new_chat.save()
 
     return Response({'success':True, 'response': response, 'source': docs})
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_subjects(request):
+    subjects_list = Subject.objects.all()
+    serializer = SubjectSerializer(subjects_list, many=True)
+    return Response({'success':True, 'response':serializer.data})
