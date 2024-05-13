@@ -99,14 +99,14 @@ def add_documents(request,subject):
             vector.save_local(f"faiss_index/{subject_current.name}")
             del_doc = Document.objects.get(id = doc_id)
             del_doc.delete()
-            return redirect('documents', subject=subject_current.name)
+            return redirect('subject', subject=subject_current.name)
         
 
         if 'prompt-submit' in request.POST:
             this_prompt = request.POST.get("prompt")
             prompt.prompt = this_prompt
             prompt.save()
-            return redirect('documents', subject=subject_current.name)
+            return redirect('subject', subject=subject_current.name)
      
 
         this_docs = request.FILES.getlist("docs")
@@ -114,7 +114,7 @@ def add_documents(request,subject):
             new_doc = Document.objects.create(subject = subject_current.name, doc = i)
             create_db_2(str(new_doc.doc.file), subject_current.name)
             new_doc.save()
-        return redirect('documents', subject=subject_current.name)
+        return redirect('subject', subject=subject_current.name)
     
     return render(request, "documents.html", context = {'docs': docs, 'prompt': prompt, 'subjects': subjects_list, 'subject_current': subject_current.name})
 
