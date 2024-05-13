@@ -83,11 +83,18 @@ class Document(models.Model):
 
 class DefaultPrompt(models.Model):
     subject = models.ForeignKey(Subject, null = True, on_delete=models.CASCADE)
-    prompt = models.TextField(null = True)
-    human_prompt = models.TextField(null = True)
+    prompt = models.TextField(null = True, default="Answer the user's questions based on the context.")
+    human_prompt = models.TextField(null = True, blank = True)
 
     def __str__(this):
         return str(this.subject.name)
+    
+    def save(self, *args, **kwargs):
+        
+        if not self.human_prompt:
+            # Add your logic to generate the human prompt
+            self.human_prompt = "Given the above conversation, generate a search query to look up in order to get information relevant to the conversation."
+        super().save(*args, **kwargs)
 
 class TextRandom(models.Model):
     text = models.TextField(null = True)
